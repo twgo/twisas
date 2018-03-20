@@ -27,3 +27,4 @@ deploy:
     tags: true
     distributions: sdist bdist_wheel
     repo: twgo/twisas
+    condition: $TOX_ENV = tan1uan5
