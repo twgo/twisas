@@ -17,4 +17,12 @@ script:
 after_success:
 - coverage report
 - coveralls
-
+deploy:
+  provider: pypi
+  user: sih4sing5hong5
+  password:
+    secure: cQ7/vmsoOjGOcUfhIAvipE+FBJfV0Ki3y4ZklvpFVIu/rWMD8EjOLjYtmUgSNATpRFZA0FS7dTMUjE3zPZL78LV7Rmo8rXYjvKD9ShPA8Mc4XJ9iKEmogcbremMcWqpU8ZOzcDqx86RZSrP/26s3AgwI01tiC0oN8aC4nGSNJQN/poNpda3PG5rC718QMAh+i/lHAA5jFfL7iAIfyb4caxgInTDZc3pbhmYWgki8ZFU+XSk22/BjpR1+VbssUhvLmJY/DDDOqdhPHH270MEubvqisN3voUbQfK/8whSFqEMHedMG+dHRdE5SFosO0BQNOwFwLO+2eeweUlMIcyRzHq7iCXy3CX2k+J71knBoCJMWjWtUqWKfBmRQQ0bXPJbH7icaNeRY6msOJ7TQ0TZq7S0CHANLorKar++KOh1/pEN0j/6a4utlGxu+hEU83rchylZZmuMPkf9e/3nr1E0Tv+pGZxL3Li81c18cDq0rUDyiR+8sJ4VoNUugCNia33ygTbnNJjDliRkkTBnrAfZ2EUJDH/DLxGaMdTa/eq600d28/0GDR3MqgLh/JhaAx5jR+y6B99FEDjLxFy1NZ7O4WN8VJASO0df0SmLVTQQA1hUfDcyRljNSC68YRQQbyVNmIVlsQGKwq89aDjSx/Dn4bKSREpuF+I6ffKE1tJA+U98=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: twgo/twisas
