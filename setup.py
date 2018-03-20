@@ -2,7 +2,6 @@ from distutils.core import setup
 from os import walk
 import os
 import sys
-from 版本 import 版本
 
 
 def 讀(檔名):
