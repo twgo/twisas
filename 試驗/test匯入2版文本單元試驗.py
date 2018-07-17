@@ -27,6 +27,20 @@ class 匯入2版文本單元試驗(TestCase):
                 },
             ]
         }]
+        self.卡拉OK = [{
+            "影音所在": "/home/ciciw/git/gi2_liau7_khoo3/音檔/MH/MaternalHome-003.wav",
+            "聽拍資料": [
+                {
+                    "內容": "a1 khuann2-tio3 tsau9 gin1-na2 hong3 khi7-hu7 honnh4",
+                    "口語臺羅": "a1 khuann2-tio3 tsau9 gin1-na2 hong3 khi7-hu7 honnh4",
+                    "本調臺羅": "ah4-m7-koh4 it4-tit8 tshiunn3 kha1-la1-oo1-khe1 tshiunn3 kah4 tsit4-ma2",
+                    "漢字": "猶毋過一直唱卡拉OK唱甲這馬",
+                    "結束時間": 125.706,
+                    "語者": "高欣欣",
+                    "開始時間": 123.242
+                },
+            ]
+        }]
         self.兩句 = [{
             "影音所在": "/home/ciciw/git/gi2_liau7_khoo3/音檔/MH/MaternalHome-003.wav",
             "聽拍資料": [
@@ -105,6 +119,23 @@ class 匯入2版文本單元試驗(TestCase):
                 call_command('匯入台文語料庫2版文本', 資料檔所在, stdout=out)
         self.assertIn(
             'tsau9｜tsau9 囡-仔｜gin2-a2 hong9｜hong9',
+            訓練過渡格式.objects.get().文本
+        )
+
+    def test_匯入卡拉OK(self):
+        with TemporaryDirectory() as 資料夾:
+            聲音檔所在 = join(資料夾, 'audio.wav')
+            資料檔所在 = join(資料夾, 'twisas2.json')
+            with open(聲音檔所在, 'wb') as 檔案:
+                檔案.write(聲音檔.對參數轉(2, 16, 1, b'khiau2' * 16000).wav格式資料())
+            self.兩檔[0]['影音所在'] = 聲音檔所在
+            self.兩檔[1]['影音所在'] = 聲音檔所在
+            with open(資料檔所在, 'wt') as 檔案:
+                json.dump(self.卡拉OK, 檔案)
+            with io.StringIO() as out:
+                call_command('匯入台文語料庫2版文本', 資料檔所在, stdout=out)
+        self.assertIn(
+            '卡-拉-O-K｜kha1-la1-oo1-khe1',
             訓練過渡格式.objects.get().文本
         )
 
