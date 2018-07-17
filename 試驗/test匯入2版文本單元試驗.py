@@ -31,9 +31,9 @@ class 匯入2版文本單元試驗(TestCase):
             "影音所在": "/home/ciciw/git/gi2_liau7_khoo3/音檔/MH/MaternalHome-003.wav",
             "聽拍資料": [
                 {
-                    "內容": "a1 khuann2-tio3 tsau9 gin1-na2 hong3 khi7-hu7 honnh4",
-                    "口語臺羅": "a1 khuann2-tio3 tsau9 gin1-na2 hong3 khi7-hu7 honnh4",
-                    "本調臺羅": "ah4-m7-koh4 it4-tit8 tshiunn3 kha1-la1-oo1-khe1 tshiunn3 kah4 tsit4-ma2",
+                    "本調臺羅": (
+                        "ah4-m7-koh4 it4-tit8 tshiunn3 kha1-la1-oo1-khe1 tshiunn3 kah4 tsit4-ma2"
+                    ),
                     "漢字": "猶毋過一直唱卡拉OK唱甲這馬",
                     "結束時間": 125.706,
                     "語者": "高欣欣",

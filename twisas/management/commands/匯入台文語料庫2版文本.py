@@ -30,7 +30,10 @@ class Command(BaseCommand):
         with open(參數['聽拍json']) as 檔案:
             for 資料 in json.load(檔案):
                 for thiann in 資料['聽拍資料']:
-                    漢字 = 漢字合音.sub(' XXX ', thiann['漢字'].replace('卡拉OK','卡拉O-K'))
+                    漢字 = 漢字合音.sub(
+                        ' XXX ',
+                        thiann['漢字'].replace('卡拉OK', '卡拉O-K')
+                    )
                     句物件 = 拆文分析器.建立句物件(漢字, thiann['本調臺羅'])
                     for ji in 句物件.篩出字物件():
                         if ji.型 == 'XXX':
