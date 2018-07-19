@@ -9,10 +9,9 @@ from 臺灣言語工具.解析整理.拆文分析器 import 拆文分析器
 
 
 class Command(BaseCommand):
-    help = '匯入高明達聽拍的twisas資料庫'
 
     公家內容 = {
-        '來源': '台文資料庫trs',
+        '來源': 'twisas-trs',
         '種類': '語句',
         '年代': '2018',
     }
