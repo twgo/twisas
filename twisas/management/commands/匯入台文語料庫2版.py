@@ -7,6 +7,9 @@ from 臺灣言語服務.models import 訓練過渡格式
 
 
 class Command(BaseCommand):
+    valid_dataset = ['blktc01.wav', 'blktc05.wav']
+    test_dataset = ['blktc03.wav', 'blktc07.wav']
+
     help = '匯入高明達聽拍的twisas資料庫'
 
     公家內容 = {

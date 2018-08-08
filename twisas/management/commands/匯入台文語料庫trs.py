@@ -11,13 +11,14 @@ from os.path import dirname
 
 
 class Command(BaseCommand):
+    valid_dataset = ['D-13.trs']
+    test_dataset = ['D-14.trs']
 
     公家內容 = {
         '來源': 'twisas-trs',
         '種類': '語句',
         '年代': '2018',
     }
-    trs網址 = 'https://twgo.github.io/Taigi_giliau_HL/twisas-HL.json'
 
     def add_arguments(self, parser):
         parser.add_argument(
