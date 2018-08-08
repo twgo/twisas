@@ -17,6 +17,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
+            'dataset', choices=['train', 'valid', 'test']
+        )
+        parser.add_argument(
             '聽拍json',  type=str
         )
 
