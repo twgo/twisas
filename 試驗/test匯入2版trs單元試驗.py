@@ -8,5 +8,5 @@ from 臺灣言語服務.models import 訓練過渡格式
 
 class 匯入2版trs單元試驗(TestCase):
     def test_匯入數量(self):
-        call_command('匯入台文語料庫trs')
+        call_command('匯入台文語料庫trs文本')
         self.assertGreater(訓練過渡格式.資料數量(), 13000)
