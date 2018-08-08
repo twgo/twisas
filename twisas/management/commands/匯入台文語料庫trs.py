@@ -6,6 +6,8 @@ from django.core.management.base import BaseCommand
 
 from 臺灣言語服務.models import 訓練過渡格式
 from 臺灣言語工具.解析整理.拆文分析器 import 拆文分析器
+from os import walk
+from os.path import dirname
 
 
 class Command(BaseCommand):
@@ -27,15 +29,17 @@ class Command(BaseCommand):
 
         全部資料 = []
         匯入數量 = 0
-        if 參數['trs聽拍json']:
-            guan資料 = self._tongan資料(參數['trs聽拍json'])
-        else:
-            guan資料 = self._github資料()
-        for han in guan資料:
-            句物件 = 拆文分析器.建立句物件(han)
+        檔案所在 = {}
+        for 這馬所在, _, 檔名陣列 in walk(dirname(參數['trs聽拍json'])):
+            for 檔名 in 檔名陣列:
+                檔案所在[檔名] = join(這馬所在, 檔名)
+
+        for tsua in self._tongan資料(參數['trs聽拍json']):
+            tsua['內容'] = tsua['口語臺羅']
             全部資料.append(
                 訓練過渡格式(
-                    文本=句物件.看分詞(),
+                    影音=檔案所在[tsua["檔名"].replace('trs', 'wav')],
+                    聽拍=[tsua],
                     **self.公家內容
                 )
             )
@@ -51,12 +55,4 @@ class Command(BaseCommand):
 
     def _tongan資料(self, tongan):
         with open(tongan) as 檔:
-            資料 = json.load(檔)
-        for tsua in 資料:
-            yield tsua['漢字']
-
-    def _github資料(self):
-        with urlopen(self.trs網址) as 檔:
-            資料 = json.loads(檔.read().decode())
-        for tsua in 資料:
-            yield tsua['漢字']
+            return json.load(檔)
