@@ -37,19 +37,22 @@ class Command(BaseCommand):
                 檔案所在[檔名] = join(這馬所在, 檔名)
 
         for tsua in self._tongan資料(參數['trs聽拍json']):
-            if self.有欲匯無(參數['dataset'], tsua["檔名"]):
-                tsua['內容'] = tsua['口語臺羅']
-                全部資料.append(
-                    訓練過渡格式(
-                        影音所在=檔案所在[tsua["檔名"].replace('trs', 'wav')],
-                        聽拍=[tsua],
-                        **self.公家內容
+            try:
+                if self.有欲匯無(參數['dataset'], tsua["檔名"]):
+                    tsua['內容'] = tsua['口語臺羅']
+                    全部資料.append(
+                        訓練過渡格式(
+                            影音所在=檔案所在[tsua["檔名"].replace('trs', 'wav')],
+                            聽拍=[tsua],
+                            **self.公家內容
+                        )
                     )
-                )
 
-                匯入數量 += 1
-                if 匯入數量 % 100 == 0:
-                    self.stdout.write('匯入 {} 筆'.format(匯入數量))
+                    匯入數量 += 1
+                    if 匯入數量 % 100 == 0:
+                        self.stdout.write('匯入 {} 筆'.format(匯入數量))
+            except KeyError:
+                pass
 
         self.stdout.write('檢查格式了匯入')
         訓練過渡格式.加一堆資料(全部資料)
