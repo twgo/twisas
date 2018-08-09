@@ -88,7 +88,7 @@ class 匯入2版單元試驗(TestCase):
             with open(資料檔所在, 'wt') as 檔案:
                 json.dump(self.兩檔, 檔案)
             with io.StringIO() as out:
-                call_command('匯入台文語料庫2版', 資料檔所在, stdout=out)
+                call_command('匯入台文語料庫2版', 'train', 資料檔所在, stdout=out)
         self.assertEqual(訓練過渡格式.資料數量(), 2)
 
     def test_匯入內容(self):
@@ -101,5 +101,5 @@ class 匯入2版單元試驗(TestCase):
             with open(資料檔所在, 'wt') as 檔案:
                 json.dump(self.兩句, 檔案)
             with io.StringIO() as out:
-                call_command('匯入台文語料庫2版', 資料檔所在, stdout=out)
+                call_command('匯入台文語料庫2版', 'train', 資料檔所在, stdout=out)
         self.assertEqual(訓練過渡格式.objects.get().聽拍, self.兩句[0]['聽拍資料'])
