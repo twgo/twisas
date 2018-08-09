@@ -44,6 +44,8 @@ class Command(BaseCommand):
                         tsua['口語臺羅']
                         .replace(' -', ' ').replace('- ', ' ').strip('-')
                     ).看分詞()
+                    tsua['開始時間'] = float(tsua['開始時間'])
+                    tsua['結束時間'] = float(tsua['結束時間'])
                     全部資料.append(
                         訓練過渡格式(
                             影音所在=檔案所在[tsua["檔名"].replace('trs', 'wav')],
