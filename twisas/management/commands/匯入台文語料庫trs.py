@@ -41,7 +41,7 @@ class Command(BaseCommand):
                 tsua['內容'] = tsua['口語臺羅']
                 全部資料.append(
                     訓練過渡格式(
-                        影音=檔案所在[tsua["檔名"].replace('trs', 'wav')],
+                        影音所在=檔案所在[tsua["檔名"].replace('trs', 'wav')],
                         聽拍=[tsua],
                         **self.公家內容
                     )
