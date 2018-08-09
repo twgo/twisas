@@ -40,7 +40,10 @@ class Command(BaseCommand):
         for tsua in self._tongan資料(參數['trs聽拍json']):
             try:
                 if self.有欲匯無(參數['dataset'], tsua["檔名"]):
-                    tsua['內容'] = 拆文分析器.建立句物件(tsua['口語臺羅']).看分詞()
+                    tsua['內容'] = 拆文分析器.建立句物件(
+                        tsua['口語臺羅']
+                        .replace(' -', ' ').replace('- ', ' ').strip('-')
+                    ).看分詞()
                     全部資料.append(
                         訓練過渡格式(
                             影音所在=檔案所在[tsua["檔名"].replace('trs', 'wav')],
