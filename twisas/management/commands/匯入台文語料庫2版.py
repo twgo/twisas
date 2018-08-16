@@ -21,6 +21,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
+            '羅馬字', choices=['口語', '本調'],
+        )
+        parser.add_argument(
             'dataset', choices=['train', 'valid', 'test']
         )
         parser.add_argument(
@@ -35,6 +38,11 @@ class Command(BaseCommand):
         with open(參數['聽拍json']) as 檔案:
             for 資料 in json.load(檔案):
                 if self.有欲匯無(參數['dataset'], 資料['影音所在']):
+                    for 一筆 in 資料['聽拍資料']:
+                        if 參數['羅馬字'] == '口語':
+                            一筆['內容'] = 一筆['口語臺羅']
+                        else:
+                            一筆['內容'] = 一筆['本調臺羅']
                     全部資料.append(
                         訓練過渡格式(
                             影音所在=資料['影音所在'],

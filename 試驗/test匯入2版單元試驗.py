@@ -88,7 +88,7 @@ class 匯入2版單元試驗(TestCase):
             with open(資料檔所在, 'wt') as 檔案:
                 json.dump(self.兩檔, 檔案)
             with io.StringIO() as out:
-                call_command('匯入台文語料庫2版', 'train', 資料檔所在, stdout=out)
+                call_command('匯入台文語料庫2版', '口語', 'train', 資料檔所在, stdout=out)
         self.assertEqual(訓練過渡格式.資料數量(), 2)
 
     def test_匯入內容(self):
@@ -101,5 +101,37 @@ class 匯入2版單元試驗(TestCase):
             with open(資料檔所在, 'wt') as 檔案:
                 json.dump(self.兩句, 檔案)
             with io.StringIO() as out:
-                call_command('匯入台文語料庫2版', 'train', 資料檔所在, stdout=out)
+                call_command('匯入台文語料庫2版', '口語', 'train', 資料檔所在, stdout=out)
         self.assertEqual(訓練過渡格式.objects.get().聽拍, self.兩句[0]['聽拍資料'])
+
+    def test_本調(self):
+        with TemporaryDirectory() as 資料夾:
+            聲音檔所在 = join(資料夾, 'audio.wav')
+            資料檔所在 = join(資料夾, 'twisas2.json')
+            with open(聲音檔所在, 'wb') as 檔案:
+                檔案.write(聲音檔.對參數轉(2, 16, 1, b'khiau2' * 16000).wav格式資料())
+            self.兩句[0]['影音所在'] = 聲音檔所在
+            with open(資料檔所在, 'wt') as 檔案:
+                json.dump(self.兩句, 檔案)
+            with io.StringIO() as out:
+                call_command('匯入台文語料庫2版', '本調', 'train', 資料檔所在, stdout=out)
+        self.assertEqual(
+            訓練過渡格式.objects.get().聽拍[0]['內容'],
+            訓練過渡格式.objects.get().聽拍[0]['本調臺羅'],
+        )
+
+    def test_口語(self):
+        with TemporaryDirectory() as 資料夾:
+            聲音檔所在 = join(資料夾, 'audio.wav')
+            資料檔所在 = join(資料夾, 'twisas2.json')
+            with open(聲音檔所在, 'wb') as 檔案:
+                檔案.write(聲音檔.對參數轉(2, 16, 1, b'khiau2' * 16000).wav格式資料())
+            self.兩句[0]['影音所在'] = 聲音檔所在
+            with open(資料檔所在, 'wt') as 檔案:
+                json.dump(self.兩句, 檔案)
+            with io.StringIO() as out:
+                call_command('匯入台文語料庫2版', '口語', 'train', 資料檔所在, stdout=out)
+        self.assertEqual(
+            訓練過渡格式.objects.get().聽拍[0]['內容'],
+            訓練過渡格式.objects.get().聽拍[0]['口語臺羅'],
+        )

@@ -21,6 +21,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
+            '羅馬字', choices=['口語', '本調'],
+        )
+        parser.add_argument(
             'dataset', choices=['train', 'valid', 'test']
         )
         parser.add_argument(
@@ -39,10 +42,14 @@ class Command(BaseCommand):
 
         for tsua in self._tongan資料(參數['trs聽拍json']):
             if self.有欲匯無(參數['dataset'], tsua["檔名"]):
-                tsua['內容'] = 拆文分析器.建立句物件(
-                    tsua['口語臺羅']
-                    .replace(' -', ' ').replace('- ', ' ').strip('-')
-                ).看分詞()
+                if 參數['羅馬字'] == '口語':
+                    羅馬字 = (
+                        tsua['口語臺羅']
+                        .replace(' -', ' ').replace('- ', ' ').strip('-')
+                    )
+                else:
+                    羅馬字 = tsua['本調臺羅']
+                tsua['內容'] = 拆文分析器.建立句物件(羅馬字).看分詞()
                 tsua['開始時間'] = float(tsua['開始時間'])
                 tsua['結束時間'] = float(tsua['結束時間'])
                 全部資料.append(
