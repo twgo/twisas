@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 
 from 臺灣言語服務.models import 訓練過渡格式
 from os.path import basename
+from 臺灣言語工具.解析整理.拆文分析器 import 拆文分析器
 
 
 class Command(BaseCommand):
@@ -40,9 +41,10 @@ class Command(BaseCommand):
                 if self.有欲匯無(參數['dataset'], 資料['影音所在']):
                     for 一筆 in 資料['聽拍資料']:
                         if 參數['羅馬字'] == '口語':
-                            一筆['內容'] = 一筆['口語臺羅']
+                            內容 = 一筆['口語臺羅']
                         else:
-                            一筆['內容'] = 一筆['本調臺羅']
+                            內容 = 一筆['本調臺羅']
+                        一筆['內容'] = 拆文分析器.建立句物件(內容).看分詞()
                     全部資料.append(
                         訓練過渡格式(
                             影音所在=資料['影音所在'],
