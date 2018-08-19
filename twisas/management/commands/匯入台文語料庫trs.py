@@ -3,6 +3,7 @@ from os import walk
 from os.path import dirname, join
 
 from django.core.management.base import BaseCommand
+from twisas import 留台語
 
 
 from 臺灣言語服務.models import 訓練過渡格式
@@ -27,6 +28,9 @@ class Command(BaseCommand):
             'dataset', choices=['train', 'valid', 'test']
         )
         parser.add_argument(
+            '--提掉外來詞', action='store_true'
+        )
+        parser.add_argument(
             'trs聽拍json',  type=str
         )
 
@@ -49,7 +53,11 @@ class Command(BaseCommand):
                     )
                 else:
                     羅馬字 = tsua['本調臺羅']
-                tsua['內容'] = 拆文分析器.建立句物件(羅馬字).看分詞()
+                分詞 = 拆文分析器.建立句物件(羅馬字).看分詞()
+                if 參數['提掉外來詞']:
+                    tsua['內容'] = 留台語(分詞)
+                else:
+                    tsua['內容'] = 分詞
                 tsua['開始時間'] = float(tsua['開始時間'])
                 tsua['結束時間'] = float(tsua['結束時間'])
                 全部資料.append(
