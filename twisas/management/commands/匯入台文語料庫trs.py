@@ -11,8 +11,8 @@ from 臺灣言語工具.解析整理.拆文分析器 import 拆文分析器
 
 
 class Command(BaseCommand):
-    valid_dataset = ['D-13.trs']
-    test_dataset = ['D-14.trs']
+    valid_dataset = []
+    test_dataset = ['NB-15.trs','PN-18.trs']
 
     公家內容 = {
         '來源': 'twisas-trs',
