@@ -6,9 +6,10 @@ from django.core.management.base import BaseCommand
 
 from 臺灣言語服務.models import 訓練過渡格式
 from 臺灣言語工具.解析整理.拆文分析器 import 拆文分析器
+from twisas.management.commands.匯入台文語料庫trs import twisastrs
 
 
-class Command(BaseCommand):
+class Command(BaseCommand, twisastrs):
 
     公家內容 = {
         '來源': 'twisas-trs',
@@ -18,6 +19,9 @@ class Command(BaseCommand):
     trs網址 = 'https://twgo.github.io/Taigi_giliau_HL/twisas-HL.json'
 
     def add_arguments(self, parser):
+        parser.add_argument(
+            'dataset', choices=['train', 'valid', 'test']
+        )
         parser.add_argument(
             '--trs聽拍json',  type=str
         )
@@ -31,18 +35,19 @@ class Command(BaseCommand):
             guan資料 = self._tongan資料(參數['trs聽拍json'])
         else:
             guan資料 = self._github資料()
-        for han in guan資料:
-            句物件 = 拆文分析器.建立句物件(han)
-            全部資料.append(
-                訓練過渡格式(
-                    文本=句物件.看分詞(),
-                    **self.公家內容
+        for tsua in guan資料:
+            if self.有欲匯無(參數['dataset'], tsua["檔名"]):
+                句物件 = 拆文分析器.建立句物件(tsua['漢字'], tsua['本調臺羅'])
+                全部資料.append(
+                    訓練過渡格式(
+                        文本=句物件.看分詞(),
+                        **self.公家內容
+                    )
                 )
-            )
 
-            匯入數量 += 1
-            if 匯入數量 % 100 == 0:
-                self.stdout.write('匯入 {} 筆'.format(匯入數量))
+                匯入數量 += 1
+                if 匯入數量 % 100 == 0:
+                    self.stdout.write('匯入 {} 筆'.format(匯入數量))
 
         self.stdout.write('檢查格式了匯入')
         訓練過渡格式.加一堆資料(全部資料)
@@ -51,11 +56,10 @@ class Command(BaseCommand):
 
     def _tongan資料(self, tongan):
         with open(tongan) as 檔:
-            資料 = json.load(檔)
-        for tsua in 資料:
-            yield tsua['漢字']
+            return json.load(檔)
 
     def _github資料(self):
+        raise NotImplementedError()
         with urlopen(self.trs網址) as 檔:
             資料 = json.loads(檔.read().decode())
         for tsua in 資料:

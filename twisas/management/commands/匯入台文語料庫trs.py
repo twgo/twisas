@@ -10,10 +10,19 @@ from 臺灣言語服務.models import 訓練過渡格式
 from 臺灣言語工具.解析整理.拆文分析器 import 拆文分析器
 
 
-class Command(BaseCommand):
+class twisastrs:
     valid_dataset = []
-    test_dataset = ['NB-15.trs','PN-18.trs']
+    test_dataset = ['NB-15.trs', 'PN-18.trs']
 
+    def 有欲匯無(self, dataset, 檔名):
+        if dataset == 'valid':
+            return 檔名 in self.valid_dataset
+        if dataset == 'test':
+            return 檔名 in self.test_dataset
+        return 檔名 not in self.valid_dataset and 檔名 not in self.test_dataset
+
+
+class Command(BaseCommand, twisastrs):
     公家內容 = {
         '來源': 'twisas-trs',
         '種類': '語句',
@@ -80,10 +89,3 @@ class Command(BaseCommand):
     def _tongan資料(self, tongan):
         with open(tongan) as 檔:
             return json.load(檔)
-
-    def 有欲匯無(self, dataset, 檔名):
-        if dataset == 'valid':
-            return 檔名 in self.valid_dataset
-        if dataset == 'test':
-            return 檔名 in self.test_dataset
-        return 檔名 not in self.valid_dataset and 檔名 not in self.test_dataset

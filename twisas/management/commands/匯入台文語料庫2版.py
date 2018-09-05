@@ -8,9 +8,20 @@ from os.path import basename
 from 臺灣言語工具.解析整理.拆文分析器 import 拆文分析器
 
 
-class Command(BaseCommand):
+class giliaukhoo_dataset:
     valid_dataset = ['blktc01.wav', 'blktc05.wav']
     test_dataset = ['blktc03.wav', 'blktc07.wav']
+
+    def 有欲匯無(self, dataset, 影音所在):
+        檔名 = basename(影音所在)
+        if dataset == 'valid':
+            return 檔名 in self.valid_dataset
+        if dataset == 'test':
+            return 檔名 in self.test_dataset
+        return 檔名 not in self.valid_dataset and 檔名 not in self.test_dataset
+
+
+class Command(BaseCommand, giliaukhoo_dataset):
 
     help = '匯入高明達聽拍的twisas資料庫'
 
@@ -61,11 +72,3 @@ class Command(BaseCommand):
         訓練過渡格式.加一堆資料(全部資料)
 
         self.stdout.write('資料數量：{}'.format(訓練過渡格式.資料數量()))
-
-    def 有欲匯無(self, dataset, 影音所在):
-        檔名 = basename(影音所在)
-        if dataset == 'valid':
-            return 檔名 in self.valid_dataset
-        if dataset == 'test':
-            return 檔名 in self.test_dataset
-        return 檔名 not in self.valid_dataset and 檔名 not in self.test_dataset
