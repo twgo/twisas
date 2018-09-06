@@ -37,7 +37,7 @@ class Command(BaseCommand, twisastrs):
             guan資料 = self._github資料()
         for tsua in guan資料:
             if self.有欲匯無(參數['dataset'], tsua["檔名"]):
-                句物件 = 拆文分析器.建立句物件(tsua['漢字'], tsua['本調臺羅'])
+                句物件 = 拆文分析器.建立句物件(tsua['無合音漢字'], tsua['本調臺羅'])
                 全部資料.append(
                     訓練過渡格式(
                         文本=句物件.看分詞(),
