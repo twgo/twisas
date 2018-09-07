@@ -131,7 +131,7 @@ class 匯入2版文本單元試驗(TestCase):
             with open(資料檔所在, 'wt') as 檔案:
                 json.dump(self.合音, 檔案)
             with io.StringIO() as out:
-                call_command('匯入台文語料庫2版文本', 資料檔所在, stdout=out)
+                call_command('匯入台文語料庫2版文本', 'train', 資料檔所在, stdout=out)
         self.assertIn(
             'tsau9｜tsau9 囡-仔｜gin2-a2 hong9｜hong9',
             訓練過渡格式.objects.get().文本
@@ -148,7 +148,7 @@ class 匯入2版文本單元試驗(TestCase):
             with open(資料檔所在, 'wt') as 檔案:
                 json.dump(self.nng合音, 檔案)
             with io.StringIO() as out:
-                call_command('匯入台文語料庫2版文本', 資料檔所在, stdout=out)
+                call_command('匯入台文語料庫2版文本', 'train', 資料檔所在, stdout=out)
         self.assertIn(
             'khue3｜khue3 lueh4｜lueh4',
             訓練過渡格式.objects.get().文本
@@ -165,7 +165,7 @@ class 匯入2版文本單元試驗(TestCase):
             with open(資料檔所在, 'wt') as 檔案:
                 json.dump(self.卡拉OK, 檔案)
             with io.StringIO() as out:
-                call_command('匯入台文語料庫2版文本', 資料檔所在, stdout=out)
+                call_command('匯入台文語料庫2版文本', 'train', 資料檔所在, stdout=out)
         self.assertIn(
             '卡-拉-O-K｜kha1-la1-oo1-khe1',
             訓練過渡格式.objects.get().文本
@@ -181,7 +181,7 @@ class 匯入2版文本單元試驗(TestCase):
             with open(資料檔所在, 'wt') as 檔案:
                 json.dump(self.兩句, 檔案)
             with io.StringIO() as out:
-                call_command('匯入台文語料庫2版文本', 資料檔所在, stdout=out)
+                call_command('匯入台文語料庫2版文本', 'train', 資料檔所在, stdout=out)
         self.assertEqual(訓練過渡格式.資料數量(), 2)
 
     def test_匯入兩檔數量(self):
@@ -195,5 +195,5 @@ class 匯入2版文本單元試驗(TestCase):
             with open(資料檔所在, 'wt') as 檔案:
                 json.dump(self.兩檔, 檔案)
             with io.StringIO() as out:
-                call_command('匯入台文語料庫2版文本', 資料檔所在, stdout=out)
+                call_command('匯入台文語料庫2版文本', 'train', 資料檔所在, stdout=out)
         self.assertEqual(訓練過渡格式.資料數量(), 3)
