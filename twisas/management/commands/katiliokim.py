@@ -4,6 +4,7 @@ from os.path import join
 
 from 臺灣言語服務.models import 訓練過渡格式
 from 匯入.指令 import 匯入枋模
+from 臺灣言語工具.解析整理.拆文分析器 import 拆文分析器
 
 
 class Command(匯入枋模):
@@ -30,7 +31,7 @@ class Command(匯入枋模):
                                 mia, tl = tsua.rstrip().split(' ', 1)
                                 yield 訓練過渡格式(
                                     影音所在=join(所在, mia),
-                                    文本=tl,
+                                    文本=拆文分析器.建立句物件(tl.split('//', 1)[1]).看型('-',' '),
                                     **self.公家內容
                                 )
 
