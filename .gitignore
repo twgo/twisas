@@ -103,3 +103,6 @@ ENV/
 /.pydevproject
 /MANIFEST
 /.settings/
+kati_liokim/
+s5c/
+db.sqlite3
