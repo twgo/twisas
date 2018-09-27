@@ -24,7 +24,7 @@ class Command(匯入枋模):
         匯入數量 = 0
         for 所在, _資料夾陣列, 檔案陣列 in sorted(os.walk(參數['所在'])):
             for tong in 檔案陣列:
-                if tong.endswith('_trans_utf8.txt'):
+                if tong.endswith('trans_utf8.txt'):
                     with open(join(所在, tong)) as thak:
                         for tsua in thak.readlines():
                             if tsua.rstrip() != '':
