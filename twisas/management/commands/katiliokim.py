@@ -29,11 +29,15 @@ class Command(匯入枋模):
                         for tsua in thak.readlines():
                             if tsua.rstrip() != '':
                                 mia, tl = tsua.rstrip().split(' ', 1)
-                                yield 訓練過渡格式(
-                                    影音所在=join(所在, mia),
-                                    文本=拆文分析器.建立句物件(tl.split('//', 1)[1]).看型('-',' '),
-                                    **self.公家內容
-                                )
+                                try:
+                                    yield 訓練過渡格式(
+                                        影音所在=join(所在, mia),
+                                        文本=拆文分析器.建立句物件(
+                                            tl.split('//', 1)[1]).看型('-', ' '),
+                                        **self.公家內容
+                                    )
+                                except IndexError as tshongoo:
+                                    print(tsua, tshongoo)
 
                     匯入數量 += 1
                     if 匯入數量 % 100 == 0:
