@@ -24,7 +24,7 @@ class Command(匯入枋模):
     def 全部資料(self, *args, **參數):
         with open(join(參數['所在'], '聽拍.csv')) as csvtong:
             for tsua in DictReader(csvtong):
-                句物件 = 拆文分析器.建立句物件(tsua['本調臺羅'].strip()).轉音(臺灣閩南語羅馬字拼音)
+                句物件 = 拆文分析器.建立句物件(tsua['本調臺羅'].strip()).轉音(臺灣閩南語羅馬字拼音,'轉通用拼音')
                 su=[]
                 for 詞物件 in 句物件.網出詞物件():
                     if not 詞物件.敢是標點符號():

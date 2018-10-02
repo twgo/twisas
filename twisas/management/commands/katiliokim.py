@@ -5,6 +5,7 @@ from os.path import join
 from 臺灣言語服務.models import 訓練過渡格式
 from 匯入.指令 import 匯入枋模
 from 臺灣言語工具.解析整理.拆文分析器 import 拆文分析器
+from 臺灣言語工具.音標系統.閩南語.臺灣閩南語羅馬字拼音 import 臺灣閩南語羅馬字拼音
 
 
 class Command(匯入枋模):
@@ -31,7 +32,7 @@ class Command(匯入枋模):
                                 mia, tl = tsua.rstrip().split(' ', 1)
                                 全部.remove(mia)
                                 try:
-                                    句物件 = 拆文分析器.建立句物件(tl.split('//', 1)[1])
+                                    句物件 = 拆文分析器.建立句物件(tl.split('//', 1)[1]).轉音(臺灣閩南語羅馬字拼音).轉音(臺灣閩南語羅馬字拼音,'轉通用拼音')
                                     su = []
                                     for 詞物件 in 句物件.網出詞物件():
                                         if not 詞物件.敢是標點符號():
