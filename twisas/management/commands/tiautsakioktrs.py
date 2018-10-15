@@ -25,7 +25,7 @@ class Command(匯入枋模):
         for sootsai, _giap, tongantui in sorted(walk(參數['所在'])):
             for tongan in tongantui:
                 if tongan.endswith('.trs'):
-                    with open(join(sootsai, '{}.json'.format(tongan.split('-')[0])), 'w') as jtong:
+                    with open(join(sootsai, '{}.json'.format(tongan)), 'w') as jtong:
                         json.dump(
                             讀trs(join(sootsai, tongan)),
                             jtong,
